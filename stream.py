@@ -4,17 +4,6 @@ import pafy
 import requests
 from bs4 import BeautifulSoup
 
-YTVideos = {
-        'brno': 'https://www.youtube.com/watch?v=yoLlXu0AmxA',
-        'time square': 'https://www.youtube.com/watch?v=mRe-514tGMg',
-        'bryant park': 'https://www.youtube.com/watch?v=0uA1tv6MFB0'
-    }
-
-MallVideos = {
-    "staromak": "https://www.mall.tv/stavby-a-technologie/stavba-marianskeho-sloupu-na-staromestskem-namesti",
-    "praha": "https://www.mall.tv/slowtv-spolecnost-a-kultura/volny-pohyb-v-centru-prahy"
-}
-
 def getYTStream(url: str) -> str:
     """
     Gets stream's URL of YouTube video.
@@ -23,6 +12,8 @@ def getYTStream(url: str) -> str:
     play = vPafy.getbest(preftype="webm",ftypestrict=False)
     return play.url
 
+# make a module from this!
+# or PR it into some existing module like Pafy
 def getMallStream(url: str, quality="1080") -> str:
     """
     Gets stream's URL of video on Mall TV.
@@ -39,11 +30,3 @@ def getMallStream(url: str, quality="1080") -> str:
 
     url = "https://" + server + "/live/" + token + "/" + qualityPreString + str(quality) + "/index.m3u8"
     return url
-
-def getRandomYTStream():
-    video = random.choice(list(YTVideos.values()))
-    return getYTStream(video)
-
-def getRandomMallStream():
-    video = random.choice(list(YTVideos.values()))
-    return getMallStream(video)
