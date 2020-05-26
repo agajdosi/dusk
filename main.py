@@ -1,4 +1,4 @@
-import sys, random
+import sys, random, argparse
 import cv2
 import numpy as np
 import stream
@@ -14,6 +14,15 @@ places = (
 url = places[0][0]
 speed = places[0][1]
 
+parser = argparse.ArgumentParser()
+parser.add_argument("--original", "-o", help="Select whether original image should be shown. Default false: only edited image will be shown. If true: edited and original images will be shown.", type=bool, default=False)
+parser.add_argument("--xmove", "-x", help="Horizontal offset for edited image. Positive numbers move it to the right.", type=int, default=0)
+parser.add_argument("--ymove", "-y", help="Vertical offset for edited image. Positive numbers move it down.", type=int, default=0)
+parser.add_argument("--xmove2", "-x2", help="Horizontal offset for original image. Positive numbers move it to the right. Default: 2600.", type=int, default=2600)
+parser.add_argument("--ymove2", "-y2", help="Vertical offset for original image. Positive numbers move it down.", type=int, default=0)
+
+args = parser.parse_args()
+
 def showVideo():
     global url, speed
     c = cv2.VideoCapture(url)
@@ -23,19 +32,25 @@ def showVideo():
 
     cv2.namedWindow("window", cv2.WND_PROP_FULLSCREEN)
     cv2.setWindowProperty("window",cv2.WND_PROP_FULLSCREEN,cv2.WINDOW_FULLSCREEN)
+    cv2.moveWindow("window", args.xmove, args.ymove)
+
+    if args.original == True:
+        cv2.namedWindow("window2", cv2.WND_PROP_FULLSCREEN)
+        cv2.setWindowProperty("window2",cv2.WND_PROP_FULLSCREEN,cv2.WINDOW_FULLSCREEN)
+        cv2.moveWindow("window2", args.xmove2, args.ymove2)
 
     while(1):
         k = cv2.waitKey(20)
         if k == 27: # ESC
             sys.exit()
 
-        _,f = c.read()
+        _, f = c.read()
         
         cv2.accumulateWeighted(f, avg, speed)
         res = cv2.convertScaleAbs(avg)
 
         if k == 105: # i
-            cv2.imshow('window',f)
+            cv2.imshow('window', f)
 
         # this is so ugly, please forgive me
         elif k == 49:
@@ -61,7 +76,10 @@ def showVideo():
         # will fix it soon, my eyes can't handle it
 
         else:
-            cv2.imshow('window',res)
+            cv2.imshow('window', res)
+
+        if args.original == True:
+            cv2.imshow('window2', f)
 
 while True:
     try:
