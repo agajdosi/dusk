@@ -1,7 +1,7 @@
 import sys, random
 import cv2
 import numpy as np
-import stream, places
+import stream
 
 places = [
     "http://213.157.112.2/ipcam/mjpeg.cgi", # mall in Hungarie
