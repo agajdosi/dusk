@@ -4,10 +4,13 @@ import numpy as np
 import stream
 
 places = (
-    ("http://213.157.112.2/ipcam/mjpeg.cgi", 0.01, "mall in Hungaria"),
-    ("http://213.157.112.2:8081/video2.mjpg", 0.01, "mall in Hungaria another view"),
+    ("1.m4v", 0.01, "Palladium 1"),
+    ("2.m4v", 0.01, "Palladium 2"),
+    #("http://93.90.222.23:7547/", 0.01, "something"),
+    #("http://213.157.112.2/ipcam/mjpeg.cgi", 0.01, "mall in Hungaria"),
+    #("http://213.157.112.2:8081/video2.mjpg", 0.01, "mall in Hungaria another view"),
     #(stream.getMallStream("https://www.mall.tv/slowtv-spolecnost-a-kultura/volny-pohyb-v-centru-prahy"), 0.002, "ulice v Praze"),
-    ("https://videos-3.earthcam.com/fecnetwork/9974.flv/chunklist_w1936389804.m3u8", 0.002, "times square z ulice")
+    #("https://videos-3.earthcam.com/fecnetwork/9974.flv/chunklist_w1936389804.m3u8", 0.002, "times square z ulice")
 )
 
 url = places[0][0]
